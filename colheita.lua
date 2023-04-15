@@ -69,6 +69,15 @@ local function harvestCycle()
   end
 end
 
+-- Function to unload items into the chest below the robot
+local function unloadItems()
+  for i = 1, robot.inventorySize() do
+    robot.select(i)
+    robot.drop(sides.down)
+  end
+  robot.select(1)
+end
+
 -- Main function
 local function main()
   while true do
@@ -76,6 +85,7 @@ local function main()
     turnBack()
     harvestCycle()
     turnBack()
+    unloadItems()
     os.sleep(waitTime)
   end
 end
