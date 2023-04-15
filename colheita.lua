@@ -1,6 +1,5 @@
 local robot = require("robot")
 local os = require("os")
-local sides = require("sides")
 
 -- Constants
 local rows = 9
@@ -30,7 +29,7 @@ end
 
 -- Function to harvest the block in front of the robot
 local function harvestBlock()
-  robot.swing(sides.front)
+  robot.swing()
 end
 
 -- Function to perform a single row of harvesting
@@ -73,7 +72,7 @@ end
 local function unloadItems()
   for i = 1, robot.inventorySize() do
     robot.select(i)
-    robot.drop(sides.down)
+    robot.dropDown()
   end
   robot.select(1)
 end
