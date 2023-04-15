@@ -75,6 +75,7 @@ local function main()
     harvestCycle()
     turnBack()
     harvestCycle()
+    turnBack()
     os.sleep(waitTime)
   end
 end
