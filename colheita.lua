@@ -1,14 +1,21 @@
 local robot = require("robot")
 local os = require("os")
+local component = require("component")
 
 -- Constants
-local rows = 9
-local columns = 23
-local waitTime = 600 -- 10 minutes in seconds
+local rows = 13
+local columns = 33
+local waitTime = 300 -- 5 minutes in seconds
+local modem = component.modem
+local port = 512
+
+-- Active the modem
+modem.open(port)
 
 -- Function to move forward
 local function moveForward()
   while not robot.forward() do
+    modem.broadcast(port, "moveForward")
     os.sleep(0.5)
   end
 end
