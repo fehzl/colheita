@@ -18,7 +18,12 @@ local function main()
   event.listen("modem_message", onModemMessage)
   
   print("Press any key to stop listening")
-  event.pull("key")
+  while true do
+    local e = {event.pull()}
+    if e[1] == "key_down" then
+      break
+    end
+  end
 
   event.ignore("modem_message", onModemMessage)
   modem.close(port)
