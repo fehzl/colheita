@@ -13,10 +13,21 @@ local function onModemMessage(_, localAddress, remoteAddress, port, distance, me
   print("Message received: " .. message)
 end
 
-event.listen("modem_message", onModemMessage)
 
-print("Press any key to stop listening")
-event.pull("key")
+local function main()
+  event.listen("modem_message", onModemMessage)
+  
+  print("Press any key to stop listening")
+  event.pull("key")
 
-event.ignore("modem_message", onModemMessage)
-modem.close(port)
+  event.ignore("modem_message", onModemMessage)
+  modem.close(port)
+end
+
+local ok, err = pcall(main)
+
+if not ok then
+  print("An error occurred: " .. tostring(err))
+  event.ignore("modem_message", onModemMessage)
+  modem.close(port)
+end
