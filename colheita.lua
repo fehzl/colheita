@@ -14,8 +14,34 @@ modem.open(port)
 
 -- Function to move forward
 local function moveForward()
+  local attempts = 0
+
   while not robot.forward() do
-    modem.broadcast(port, "moveForward")
+    if robot.detect() then
+      robot.swing()
+    end
+
+    if not robot.forward() then
+      robot.up()
+      if robot.forward() then
+        robot.down()
+        break
+      else
+        robot.down()
+      end
+    end
+
+    if not robot.forward() then
+      robot.back()
+    end
+
+    attempts = attempts + 1
+
+    if attempts >= 5 then
+      modem.broadcast(port, "moveForward")
+      attempts = 0
+    end
+    
     os.sleep(0.5)
   end
 end
