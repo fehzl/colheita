@@ -21,22 +21,6 @@ local function moveForward()
       robot.swing()
     end
 
-    local wasAbleToMoveUp = false
-    if not robot.forward() then
-      robot.up()
-      if robot.forward() then
-        wasAbleToMoveUp = true
-      else
-        robot.down()
-      end
-    end
-
-    if wasAbleToMoveUp then
-      robot.forward()
-      robot.down()
-      break
-    end
-
     if not robot.forward() then
       robot.back()
     end
